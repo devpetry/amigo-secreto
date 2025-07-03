@@ -16,14 +16,27 @@ function adicionar(){
     }
 
     amigos.push(amigo.value);
-
-    if(lista.textContent == ''){
-        lista.textContent = amigo.value;
-    } else{
-        lista.textContent = lista.textContent + ', ' + amigo.value;
-    }
-
+    atualizarLista();
     amigo.value = '';
+}
+
+function atualizarLista(){
+    let lista = document.getElementById('lista-amigos');
+    lista.innerHTML = '';
+    amigos.forEach(nome => {
+        const span = document.createElement('span');
+        span.textContent = nome;
+        span.style.cursor = 'pointer';
+        span.style.marginRight = '8px';
+        span.title = 'Clique para remover';
+        span.onclick = () => remover(nome);
+        lista.appendChild(span);
+    });
+}
+
+function remover(nome){
+    amigos = amigos.filter(amigo => amigo !== nome);
+    atualizarLista();
 }
 
 function sortear(){
